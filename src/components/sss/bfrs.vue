@@ -1769,6 +1769,7 @@
                         success: function (response, stat, xhr) {
                             var feature = vm.featurelist.find(f => f.get('fire_number') === feat.get('fire_number'));
                             if (feature) {
+                                feature.spatial_data = spatialData
                                 feature.set("original_status", feature.get("status"))
                                 feature.set("status", "in_queue")
                                 var import_task = tasks.find(task => task.taskId === 'import');
