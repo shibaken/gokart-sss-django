@@ -1175,7 +1175,11 @@
                     delete spatialData["region"]
                     if (name) {
                         name = name.toLowerCase()
-                        region = vm.whoami.bushfire.regions.find(function(o) {return o.region.toLowerCase() === name})
+                        // region = vm.whoami.bushfire.regions.find(function(o) {return o.region.toLowerCase() === name})
+                        region = (vm.whoami.bushfire.regions || []).find(function(o) {return o.region.toLowerCase() === name})
+                        console.log(vm.whoami.bushfire.regions)
+                        console.log({name})
+                        console.log({region})
                         if (region) {
                             spatialData["region_id"] = region.region_id
                         } else {
@@ -1188,7 +1192,7 @@
                     delete spatialData["district"]
                     if (name && region) {
                         name = name.toLowerCase()
-                        district = region.districts.find(function(o) {return o.district.toLowerCase() === name})
+                        district = (region.districts || []).find(function(o) {return o.district.toLowerCase() === name})
                         if (district) {
                             spatialData["district_id"] = district.id
                         } else {
@@ -3877,6 +3881,7 @@
       },
 
       loadRegions: function() {
+        console.log('Loading regions...')
         var vm = this
         vm._bfrsStatus.phaseBegin("load_regions",20,"Load regions")
         $.ajax({
